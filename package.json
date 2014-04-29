@@ -1,0 +1,24 @@
+{
+  "name": "ChaManDir",
+  "version": "0.0.1",
+  "description": "Cha Man Dir",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/vickenstein/ChaManDir.git"
+  },
+  "author": "Victor Zeng",
+  "license": "BSD",
+  "readmeFilename": "README.md",
+  "devDependencies": {
+    "grunt": "~0.4.4",
+    "grunt-contrib-concat": "~0.4.0",
+    "grunt-contrib-uglify": "^0.4.0",
+    "grunt-contrib-copy": "^0.5.0",
+    "grunt-contrib-qunit": "^0.4.0",
+    "qunitjs": "^1.14.0"
+  }
+}

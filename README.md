@@ -3,7 +3,7 @@ ChaManDir
 
 ChaManDir's vision is an all inclusive js library minus dom manipulation / ajax handling 
 
-Currently only the OO development portion of the library is submit via github. Others are work in progress, and when unit test are done will be added as well.
+Currently only the OO development portion of the library is submited via github. Others are work in progress, and when unit test are done will be added as well.
 
 µ is the prefered namespace for chamandir, though ChaManDir is currently the global namespace
 ```

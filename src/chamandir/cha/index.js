@@ -16,14 +16,10 @@ Cha.prototype = {
     return cha;
   },
 
-  adopt: function(cha, mutable) {
-    if (mutable) {
-      return this.adapt(cha);
-    } else {
-      var new_cha = new ChaManDir.Cha;
-      new_cha._constructor = this._adopt(cha);
-      return new_cha;
-    }
+  adopt: function(cha) {
+    var new_cha = new ChaManDir.Cha;
+    new_cha._constructor = this._adopt(cha);
+    return new_cha;
   },
 
   _adopt: function(cha) {

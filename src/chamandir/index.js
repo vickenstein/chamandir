@@ -17,9 +17,7 @@ chamandir.prototype = {
   evolve: function(cha, mutations) {
 
     var Clone = this.clone(cha);
-    var _super_ = {
-      _super_: Clone.prototype["_super_"] || null
-    };
+    var _super_ = (Clone.prototype["_super_"])? { _super_: Clone.prototype["_super_"] } : {};
     for (var i in mutations) {
       if (typeof mutations[i] === "function" && this.possess(Clone, i) && i !== "_super") {
         _super_[i] = Clone.prototype[i];

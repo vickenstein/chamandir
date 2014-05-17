@@ -13,6 +13,8 @@ module.exports = function(grunt) {
     "src/chamandir/*",
     "src/chamandir/cha/*",
     "src/chamandir/cha/base/*",
+    "src/chamandir/cha/gatherer/*",
+    "src/chamandir/cha/gatherer/stash/*",
     "src/chamandir/events/*",
     "src/chamandir/events/delegator/*",
     "src/chamandir/events/handler/*",
@@ -47,7 +49,10 @@ module.exports = function(grunt) {
     },
     qunit: {
       target: {
-        src: ["test/**/*.html"]
+        src: [
+          "test/**/*.html",
+          "test/cha/**/*.html"
+        ]
       }
     }
   })

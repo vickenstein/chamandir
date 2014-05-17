@@ -17,9 +17,7 @@ chamandir.prototype = {
   evolve: function(cha, mutations) {
 
     var Clone = this.clone(cha);
-    var _super_ = {
-      _super_: Clone.prototype["_super_"] || null
-    };
+    var _super_ = (Clone.prototype["_super_"])? { _super_: Clone.prototype["_super_"] } : {};
     for (var i in mutations) {
       if (typeof mutations[i] === "function" && this.possess(Clone, i) && i !== "_super") {
         _super_[i] = Clone.prototype[i];
@@ -92,14 +90,11 @@ Cha.prototype = {
     return cha;
   },
 
-  adopt: function(cha, mutable) {
-    if (mutable) {
-      return this.adapt(cha);
-    } else {
-      var new_cha = new ChaManDir.Cha;
-      new_cha._constructor = this._adopt(cha);
-      return new_cha;
-    }
+  adopt: function(cha) {
+    console.log(cha);
+    var new_cha = new ChaManDir.Cha;
+    new_cha._constructor = this._adopt(cha);
+    return new_cha;
   },
 
   _adopt: function(cha) {
@@ -139,6 +134,52 @@ Base.prototype = {
 };
 
 ChaManDir.Cha.Base = Base;
+
+ChaManDir.Cha.Gatherer = ChaManDir.define({
+
+  initialize: function() {
+    this._super();
+    this.stash = ChaManDir.Cha.Gatherer.Stash.create();
+  },
+
+  gather: function(index, context) {
+    if (this.stash.have(index)) {
+      return this.stash[index];
+    } else if (this[index] && typeof this[index] === "function") {
+      return this.stash.store(index, this[index].apply(this, context));
+    } else {
+      throw new Error(index + " method is missing!!!");
+    }
+  },
+
+  ditch: function(index) {
+    this.stash.release(index);
+    return this;
+  }
+})
+
+ChaManDir.Cha.Gatherer.Stash = ChaManDir.define({
+
+  initialize: function() {
+    this.exists = {};
+  },
+
+  have: function(index) {
+    return (this.exists[index])? true : false;
+  },
+
+  store: function(index, data) {
+    this[index] = data;
+    this.exists[index] = true;
+    return data;
+  },
+
+  release: function(index) {
+    delete this[index];
+    this.exists[index] = false;
+    return this;
+  }
+})
 
 function Events(){}
 

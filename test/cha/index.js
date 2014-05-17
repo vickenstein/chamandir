@@ -1,5 +1,5 @@
 ///////////////////////////////
-//create a class, and instance
+//create classes, and instances
 
 µ = ChaManDir;
 

@@ -1,5 +1,5 @@
 {
-  "name": "ChaManDir",
+  "name": "chamandir",
   "version": "0.0.1",
   "description": "Cha Man Dir",
   "main": "app.js",
@@ -12,6 +12,7 @@
   },
   "author": "Victor Zeng",
   "license": "BSD",
+  "email": "victor.zeng@styluxinc.com",
   "readmeFilename": "README.md",
   "devDependencies": {
     "grunt": "~0.4.4",

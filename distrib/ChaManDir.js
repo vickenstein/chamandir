@@ -37,7 +37,6 @@ chamandir.prototype = {
     return function() {
       this._method = method;
       this._arguments = arguments;
-      console.log(method, func.toString());
       var ret = func.apply(this, arguments);
       delete this._method;
       delete this._arguments;
@@ -140,3 +139,103 @@ Base.prototype = {
 };
 
 ChaManDir.Cha.Base = Base;
+
+function Events(){}
+
+Events.prototype = {
+
+}
+
+ChaManDir.Events = new Events;
+
+
+ChaManDir.Events.Delegator = ChaManDir.define({
+
+  initialize: function() {
+    this._super();
+    this.handler = ChaManDir.Events.Handler.create();
+  },
+
+  bind: function(event_names, callback, context) {
+    var context = context || this;
+    this.handler.bind(event_names, callback, context);
+  },
+
+  unbind: function(event_names) {
+    this.handler.unbind(event_names);
+  },
+
+  trigger: function(event_names, context) {
+    this.handler.trigger(event_names, context);
+  }
+})
+
+ChaManDir.Events.Handler = ChaManDir.define({
+
+  initialize: function() {
+    this.handlers = {};
+    this.events = [];
+  },
+
+  sub_events: function(event_name) {
+    return (!event_name)? [] : (event_name instanceof Array)? event_name : event_name.split(".");
+  },
+
+  bind: function(event_name, callback, context) {
+    var sub_events = this.sub_events(event_name);
+    var sub_event = sub_events.shift();
+    if (!sub_event) {
+      this._bind(callback, context);
+    } else {
+      if (!this.handlers[sub_event]) this.handlers[sub_event] = ChaManDir.Events.Handler.create();
+      this.handlers[sub_event].bind(sub_events, callback, context);
+    }
+  },
+
+  _bind: function(callback, context) {
+    this.events.push(ChaManDir.Events.Event.create(callback, context));
+  },
+
+  unbind: function(event_name) {
+    var sub_events = this.sub_events(event_name);
+    var sub_event = sub_events.shift();
+    if (sub_events.length) {
+      if (this.handlers[sub_event]) this.handlers[sub_event].unbind(sub_events)
+    } else {
+      delete this.handlers[sub_event];
+    }
+  },
+
+  trigger: function(event_name, context) {
+    var sub_events = this.sub_events(event_name);
+    var sub_event = sub_events.shift();
+    if (sub_event && this.handlers[sub_event]) {
+      this.handlers[sub_event].trigger(sub_events, context);
+    } else {
+      this._trigger(context);
+    }
+  },
+
+  _trigger: function(context) {
+    for (var i = 0; i < this.events.length; i++) {
+      this.events[i].trigger(context);
+    }
+    for (var i in this.handlers) {
+      this.handlers[i].trigger([], context);
+    }
+  }
+});
+
+ChaManDir.Events.Event = ChaManDir.define({
+
+  initialize: function(callback, context) {
+    this.callback = callback;
+    this.requestor = context;
+  },
+
+  trigger: function(context) {
+    this.context = context;
+    this.callback.call(this.requestor, this);
+    delete this.context;
+  }
+});

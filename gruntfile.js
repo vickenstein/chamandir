@@ -10,9 +10,13 @@ module.exports = function(grunt) {
   var latest_minified_release = "distrib/" + name + ".min.js";
 
   var source_order = [
-    "src/chamandir.js",
-    "src/cha.js",
-    "src/cha/base.js"
+    "src/chamandir/*",
+    "src/chamandir/cha/*",
+    "src/chamandir/cha/base/*",
+    "src/chamandir/events/*",
+    "src/chamandir/events/delegator/*",
+    "src/chamandir/events/handler/*",
+    "src/chamandir/events/event/*"
   ];
 
   grunt.initConfig({
@@ -20,12 +24,14 @@ module.exports = function(grunt) {
     concat: {
       target: {
         src: source_order,
+        filter: 'isFile',
         dest: development_release
       }
     },
     uglify: {
       target: {
         src: source_order,
+        filter: 'isFile',
         dest: minified_release
       }
     },
@@ -54,5 +60,5 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-qunit');
 
-  grunt.registerTask("default", ["concat", "uglify", "copy"]);
+  grunt.registerTask("default", ["concat", "uglify", "copy", "qunit"]);
 }

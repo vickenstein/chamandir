@@ -37,7 +37,6 @@ chamandir.prototype = {
     return function() {
       this._method = method;
       this._arguments = arguments;
-      console.log(method, func.toString());
       var ret = func.apply(this, arguments);
       delete this._method;
       delete this._arguments;

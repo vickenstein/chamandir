@@ -22,7 +22,7 @@ var PokemonBreeder = µ.define({
   }
 });
 ```
-ChaManDir class are design to not have methods attached the class constructor, but the initialize method is always called on creation.
+ChaManDir classes are design to not have methods attached the class constructor, but the initialize method is always called on creation.
 ```
 var pokemon = PokemonBreeder.create({
   name:    "charmander",
@@ -32,7 +32,7 @@ var pokemon = PokemonBreeder.create({
 pokemon.get_color(); // return "red"
 pokemon.element; // return "fire"
 ```
-ChaManDir class are designed to evolve with ability of super
+ChaManDir classes are designed to evolve with ability of super
 ```
 var ElitePokemonBreeder = PokemonBreeder.evolve({
   initialize: function(options){
@@ -48,4 +48,22 @@ var pokemon = ElitePokemonBreeder.create({
 });
 pokemon.get_color(); // return "red"
 pokemon.temper; // return "shy"
+```
+ChaManDir classes are able to adopt ability from other ChaManDir classes
+```
+var FireBreath = µ.define({
+  fire_breath: function() {
+    return "so much heat!";
+  }
+})
+var ElitePokemonWithFireBreathBreeder = ElitePokemonBreeder.adopt(FireBreath);
+```
+or when you go fire breath you can't go back
+```
+var ElitePokemonBreeder.adapt(FireBreath);
+```
+
+ChaManDir also has a comprehesive event system
+```
+var ElitePokemonBreeder.adapt(µ.Events.Delegator);
 ```

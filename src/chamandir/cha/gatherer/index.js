@@ -18,5 +18,10 @@ ChaManDir.Cha.Gatherer = ChaManDir.define({
   ditch: function(index) {
     this.stash.release(index);
     return this;
+  },
+
+  empty: function() {
+    this.stash = ChaManDir.Cha.Gatherer.Stash.create();
+    return this;
   }
 })

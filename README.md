@@ -1,14 +1,30 @@
 ChaManDir
 =========
 
-ChaManDir's vision is an all inclusive js library minus dom manipulation / ajax handling 
-
-Currently only the OO development portion of the library is submited via github. Others are work in progress, and when unit test are done will be added as well.
+ChaManDir is a js library to help with OO development and abstract from prototype. 
+It also have some predefined base classes to extend from. e.g eventing, getter/setter
 
 µ is the prefered namespace for chamandir, though ChaManDir is currently the global namespace
 ```
 µ = ChaManDir;
 ```
+If prefer to use require.js with chamandir, configure:
+```
+require.config({
+  path: {
+    'chamandir',  'path to chamandir distrib version, or minified'
+  }
+})
+
+require(['chamandir'], function(µ) {
+  var Klass = µ.define();
+});
+```
+If to use in node.js, configure package.json -> npm install, and: 
+```
+var µ = require('chamandir');
+```
+
 To define a class use
 ```
 var PokemonBreeder = µ.define({
@@ -55,15 +71,30 @@ var FireBreath = µ.define({
   fire_breath: function() {
     return "so much heat!";
   }
-})
+});
 var ElitePokemonWithFireBreathBreeder = ElitePokemonBreeder.adopt(FireBreath);
 ```
 or when you go fire breath you can't go back
 ```
-var ElitePokemonBreeder.adapt(FireBreath);
+ElitePokemonBreeder.adapt(FireBreath);
 ```
 
 ChaManDir also has a comprehesive event system
 ```
-var ElitePokemonBreeder.adapt(µ.Events.Delegator);
+var EventingElitePokemonBreeder = ElitePokemonBreeder.adapt(µ.Events.Delegator);
+var pokemon = EventingElitePokemonBreeder.create({
+  name:     "charmander",
+  color:    "red",
+  element:  "fire",
+  temper:   "shy"
+});
+pokemon.bind('eat', function(){
+  console.log(this.name + " is getting happier");
+});
+pokemon.bind('eat.start', function(){
+  console.log(this.name + " just found food");
+});
+pokemon.trigger('eat'); // log 'charmander just found food'
+                        // log 'charmander is getting happier'
+pokemon.trigger('eat.start'); // log 'charmander just found food'
 ```

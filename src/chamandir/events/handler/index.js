@@ -45,11 +45,11 @@ ChaManDir.Events.Handler = ChaManDir.define({
   },
 
   _trigger: function(context) {
-    for (var i = 0; i < this.events.length; i++) {
-      this.events[i].trigger(context);
-    }
     for (var i in this.handlers) {
       this.handlers[i].trigger([], context);
+    }
+    for (var i = 0; i < this.events.length; i++) {
+      this.events[i].trigger(context);
     }
   }
 });

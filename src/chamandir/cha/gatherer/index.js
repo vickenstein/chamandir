@@ -23,5 +23,9 @@ ChaManDir.Cha.Gatherer = ChaManDir.define({
   empty: function() {
     this.stash = ChaManDir.Cha.Gatherer.Stash.create();
     return this;
+  },
+
+  reset: function(index, context) {
+    this.ditch(index).gather(index, context)
   }
 })

@@ -26,6 +26,6 @@ ChaManDir.Cha.Gatherer = ChaManDir.define({
   },
 
   reset: function(index, context) {
-    this.ditch(index).gather(index, context)
+    return this.ditch(index).gather(index, context);
   }
 })

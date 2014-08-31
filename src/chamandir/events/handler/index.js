@@ -1,6 +1,8 @@
 ChaManDir.Events.Handler = ChaManDir.define({
 
   initialize: function() {
+
+    this._super();
     this.handlers = {};
     this.events = [];
   },

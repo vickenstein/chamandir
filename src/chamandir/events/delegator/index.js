@@ -5,16 +5,16 @@ ChaManDir.Events.Delegator = ChaManDir.define({
     this.handler = ChaManDir.Events.Handler.create();
   },
 
-  bind: function(event_names, callback, context) {
+  bind: function(event_name, callback, context) {
     var context = context || this;
-    this.handler.bind(event_names, callback, context);
+    this.handler.bind(event_name, callback, context);
   },
 
-  unbind: function(event_names) {
-    this.handler.unbind(event_names);
+  unbind: function(event_name) {
+    this.handler.unbind(event_name);
   },
 
-  trigger: function(event_names, context) {
-    this.handler.trigger(event_names, context);
+  trigger: function(event_name, context) {
+    this.handler.trigger(event_name, context);
   }
 })

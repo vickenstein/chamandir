@@ -100,3 +100,21 @@ test("triggering only sub sub events", function() {
   ok(pokemon5.power_points === 26);
   ok(pokemon5.health_points === 30);
 });
+
+var pokemon6 = Pokemon.create("legendary", 130);
+pokemon6.bind("attack", function() {
+  this.attacked = true;
+});
+pokemon6.bind("retreat", function() {
+  this.retreated = true;
+});
+pokemon6.bind("jump", function() {
+  this.jumped = true;
+})
+pokemon6.trigger("retreat");
+pokemon6.trigger("poop");
+test("multiple events", function() {
+  ok(pokemon6.retreated === true);
+  ok(pokemon6.attacked !== true);
+  ok(pokemon6.jumped !== true);
+});

@@ -39,8 +39,10 @@ ChaManDir.Events.Handler = ChaManDir.define({
   trigger: function(event_name, context) {
     var sub_events = this.sub_events(event_name);
     var sub_event = sub_events.shift();
-    if (sub_event && this.handlers[sub_event]) {
-      this.handlers[sub_event].trigger(sub_events, context);
+    if (sub_event) {
+      if (this.handlers[sub_event]) {
+        this.handlers[sub_event].trigger(sub_events, context);
+      }
     } else {
       this._trigger(context);
     }

@@ -3,6 +3,11 @@ ChaManDir.Events.Delegator = ChaManDir.define({
   initialize: function() {
     this._super();
     this.handler = ChaManDir.Events.Handler.create();
+    this.hooks();
+  },
+
+  hooks: function() {
+
   },
 
   bind: function(event_name, callback, context) {

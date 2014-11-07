@@ -118,3 +118,16 @@ test("multiple events", function() {
   ok(pokemon6.attacked !== true);
   ok(pokemon6.jumped !== true);
 });
+
+var Pokemon2 = Pokemon.evolve({
+  hooks: function() {
+    this.bind("retreat", function() {
+      this.retreated = true;
+    });
+  }
+})
+var pokemon7 = Pokemon2.create("poop", 110);
+pokemon7.trigger("retreat");
+test("hooks", function() {
+  ok(pokemon7.retreated === true);
+});

@@ -10,6 +10,9 @@ ChaManDir.Cha.Gatherer = ChaManDir.define({
       return this.stash[index];
     } else if (this[index] && typeof this[index] === "function") {
       return this.stash.store(index, this[index].apply(this, context));
+    } else if (context && !this[index]) {
+      console.log("test");
+      return this.stash.store(index, context);
     } else {
       throw new Error(index + " method is missing!!!");
     }

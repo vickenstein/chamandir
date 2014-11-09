@@ -15,12 +15,16 @@ ChaManDir.Events.Quest = ChaManDir.Events.Delegator.evolve({
 
   start: function() {
     var _this = this;
-    for (var i = 0; i < this.tasks.length; i++) {
-      this.tasks[i](function(response) {
-        _this.complete(response);
-      }, function(error) {
-        _this.failure(error);
-      });
+    if (this.tasks.length > 0) {
+      for (var i = 0; i < this.tasks.length; i++) {
+        this.tasks[i](function(response) {
+          _this.complete(response);
+        }, function(error) {
+          _this.failure(error);
+        });
+      }
+    } else {
+      this.complete();
     }
   },
 

@@ -19,6 +19,7 @@ module.exports = function(grunt) {
     "src/chamandir/events/delegator/*",
     "src/chamandir/events/handler/*",
     "src/chamandir/events/event/*",
+    "src/chamandir/events/quest/*",
     "src/chamandir/distrib/*"
   ];
 

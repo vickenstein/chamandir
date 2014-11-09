@@ -131,3 +131,22 @@ pokemon7.trigger("retreat");
 test("hooks", function() {
   ok(pokemon7.retreated === true);
 });
+
+var Pokemon3 = Pokemon.adopt(µ.Events.Quest);
+var count = 0;
+pokemon8 = Pokemon3.create(function(){
+  test("quest", function() {
+    ok(count === 3);
+  });
+})
+pokemon8.task(function(callback, error) {
+  setTimeout(function() {
+    count += 1;
+    callback();
+  }, 10);
+}).task(function(callback, error) {
+  setTimeout(function() {
+    count += 2;
+    callback();
+  }, 100)
+}).start();

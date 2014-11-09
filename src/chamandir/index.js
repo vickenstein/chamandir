@@ -55,7 +55,6 @@ chamandir.prototype = {
 
   // Helper to generate new Cha
   define: function(properties) {
-
     return new ChaManDir.Cha(properties);
   },
 

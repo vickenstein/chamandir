@@ -1,6 +1,6 @@
 {
   "name": "chamandir",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "Cha Man Dir",
   "main": "app.js",
   "scripts": {

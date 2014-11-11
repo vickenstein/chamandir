@@ -32,13 +32,14 @@ chamandir.prototype = {
 
   // Generate a wrap for a function that replaces a super
   _super: function(method, func) {
+
     return function() {
-      this._method = method;
-      this._arguments = arguments;
+      this._method.unshift(method);
+      this._arguments.unshift(arguments);
       var ret = func.apply(this, arguments);
-      delete this._method;
-      delete this._arguments;
-      delete this.__supper__;
+      this._method.shift();
+      this._arguments.shift();
+      delete this.__super[method];
       return ret;
     }
   },
